@@ -655,6 +655,76 @@ struct TokensListResult
     3: list<TokenInfo> tokens;
 }
 
+// Ordinals
+
+struct OrdinalSNS
+{
+    1: string protocol;
+    2: string operation;
+    3: string name;
+    4: general.Address holder;
+    5: i64 blockNumber;
+    6: i64 txIndex;
+}
+
+struct OrdinalToken
+{
+    1: string ticker;
+    2: i64 maxSupply;
+    3: i64 limitPerMint;
+    4: i64 totalMinted;
+    5: i64 deployBlock;
+    6: general.Address deployer;
+}
+
+struct OrdinalTokenBalance
+{
+    1: string ticker;
+    2: i64 balance;
+}
+
+// Ordinal API Results
+
+struct OrdinalSNSCheckResult
+{
+    1: general.APIResponse status;
+    2: bool available;
+    3: optional OrdinalSNS snsInfo;
+}
+
+struct OrdinalSNSGetResult
+{
+    1: general.APIResponse status;
+    2: list<OrdinalSNS> snsEntries;
+}
+
+struct OrdinalTokenInfoResult
+{
+    1: general.APIResponse status;
+    2: optional OrdinalToken tokenInfo;
+}
+
+struct OrdinalTokenBalanceResult
+{
+    1: general.APIResponse status;
+    2: i64 balance;
+}
+
+struct OrdinalTokensListResult
+{
+    1: general.APIResponse status;
+    2: i32 count;
+    3: list<OrdinalToken> tokens;
+}
+
+struct OrdinalStatsResult
+{
+    1: general.APIResponse status;
+    2: i32 totalSNS;
+    3: i32 totalTokens;
+    4: i32 totalInscriptions;
+}
+
 // Wallets
 
 enum WalletsListSort
@@ -859,4 +929,12 @@ service API
     SyncStateResult SyncStateGet()
 	
 	ExecuteCountGetResult ExecuteCountGet(1:string executeMethod)
+
+    // Ordinals
+    OrdinalSNSCheckResult OrdinalSNSCheck(1:string name)
+    OrdinalSNSGetResult OrdinalSNSGetByHolder(1:general.Address holder)
+    OrdinalTokenInfoResult OrdinalTokenGet(1:string ticker)
+    OrdinalTokenBalanceResult OrdinalTokenBalanceGet(1:general.Address address, 2:string ticker)
+    OrdinalTokensListResult OrdinalTokensList(1:i64 offset, 2:i64 limit)
+    OrdinalStatsResult OrdinalStatsGet()
 }
