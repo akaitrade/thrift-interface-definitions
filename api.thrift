@@ -657,7 +657,7 @@ struct TokensListResult
 
 // Ordinals
 
-struct OrdinalSNS
+struct OrdinalCNS
 {
     1: string protocol;
     2: string operation;
@@ -665,6 +665,7 @@ struct OrdinalSNS
     4: general.Address holder;
     5: i64 blockNumber;
     6: i64 txIndex;
+    7: optional string relay;
 }
 
 struct OrdinalToken
@@ -685,17 +686,17 @@ struct OrdinalTokenBalance
 
 // Ordinal API Results
 
-struct OrdinalSNSCheckResult
+struct OrdinalCNSCheckResult
 {
     1: general.APIResponse status;
     2: bool available;
-    3: optional OrdinalSNS snsInfo;
+    3: optional OrdinalCNS cnsInfo;
 }
 
-struct OrdinalSNSGetResult
+struct OrdinalCNSGetResult
 {
     1: general.APIResponse status;
-    2: list<OrdinalSNS> snsEntries;
+    2: list<OrdinalCNS> cnsEntries;
 }
 
 struct OrdinalTokenInfoResult
@@ -720,7 +721,7 @@ struct OrdinalTokensListResult
 struct OrdinalStatsResult
 {
     1: general.APIResponse status;
-    2: i32 totalSNS;
+    2: i32 totalCNS;
     3: i32 totalTokens;
     4: i32 totalInscriptions;
 }
@@ -931,8 +932,8 @@ service API
 	ExecuteCountGetResult ExecuteCountGet(1:string executeMethod)
 
     // Ordinals
-    OrdinalSNSCheckResult OrdinalSNSCheck(1:string name)
-    OrdinalSNSGetResult OrdinalSNSGetByHolder(1:general.Address holder)
+    OrdinalCNSCheckResult OrdinalCNSCheck(1:string name)
+    OrdinalCNSGetResult OrdinalCNSGetByHolder(1:general.Address holder)
     OrdinalTokenInfoResult OrdinalTokenGet(1:string ticker)
     OrdinalTokenBalanceResult OrdinalTokenBalanceGet(1:general.Address address, 2:string ticker)
     OrdinalTokensListResult OrdinalTokensList(1:i64 offset, 2:i64 limit)
